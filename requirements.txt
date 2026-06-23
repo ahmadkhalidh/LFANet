@@ -1,0 +1,10 @@
+tensorflow==2.15.1
+tf_keras==2.15.0
+keras==2.15.0
+numpy==1.24.4
+opencv-python
+pillow
+flask
+streamlit
+reportlab
+llama-cpp-python

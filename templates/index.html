@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liver Fibrosis Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- DISCLAIMER -->
+<div id="disclaimerModal" class="modal">
+    <div class="modal-content">
+        <h2>Clinical Disclaimer</h2>
+        <p>This system is for research and educational use only.</p>
+        <p>It does not provide medical diagnosis or treatment advice.</p>
+        <input type="checkbox" id="consentCheck">
+        <label>I understand and agree.</label>
+        <br><br>
+        <button id="acceptDisclaimer" disabled>Proceed</button>
+    </div>
+</div>
+
+<div class="container">
+    <h1>Liver Fibrosis Detection</h1>
+
+    <input type="file" id="imageInput">
+    <br><br>
+
+    <label>
+        <input type="checkbox" id="toggleExplain" checked>
+        Enable Explainability
+    </label>
+    <br><br>
+
+    <button onclick="uploadImage()">Analyze</button>
+
+    <div id="result" class="hidden">
+        <p><b>Prediction:</b> <span id="predictedClass"></span></p>
+        <p><b>Confidence:</b> <span id="confidence"></span></p>
+
+        <img id="camImage" class="hidden">
+        <p id="explanation"></p>
+
+        <a id="pdfLink" target="_blank"></a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
