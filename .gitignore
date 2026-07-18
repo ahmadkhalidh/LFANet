@@ -1,3 +1,5 @@
 /venv
 /.env
 /outputs
+livermodel.h5
+livermodel.keras

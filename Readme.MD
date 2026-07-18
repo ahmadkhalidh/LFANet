@@ -1,79 +1,109 @@
-# Liver Fibrosis Detection System with Explainable AI
+# LFANet
 
-This repository contains a deep learning based system for liver fibrosis stage classification using medical images.  
-The system integrates a convolutional neural network for prediction and Grad-CAM for visual explainability.  
-An optional large language model component can be used to generate textual explanations of saliency maps for research analysis.
+**LFANet: A Lightweight Explainable AI Model for Liver Fibrosis Classification with Dilated Attention and Two-Stage Interpretation**
 
-This project is intended strictly for **research and educational purposes**.
+This repository contains the implementation of **LFANet**, a lightweight convolutional neural network for multi-stage liver fibrosis classification from ultrasound images. The framework integrates multi-scale dilated convolutions, depthwise separable convolutions, residual learning, self-attention, Grad-CAM visualization, and an optional post hoc large language model (LLM) for natural language explanation generation.
 
 ---
 
-## Features
+## Repository Structure
 
-- Multiclass liver fibrosis classification (F0–F4)
-- Custom CNN architecture trained on normalized image data
-- Grad-CAM visualization for model interpretability
-- Optional LLM-based explanation of saliency patterns
-- Web-based interface using Flask or Streamlit
-- Exportable prediction reports in PDF format
+```
+.
+├── modelling/
+│   ├── LFANet.ipynb
+│   ├── LFANet_NoAttention.ipynb
+│   ├── LFANet_NoResidual.ipynb
+│   ├── LFANet_NoDepthwise.ipynb
+│   ├── LFANet_NoDilated.ipynb
+│   ├── LFANet_D111.ipynb
+│   ├── LFANet_D123.ipynb
+│   ├── LFANet_D125.ipynb
+│   ├── LFANet_D135.ipynb
+│   ├── ResNet50_Baseline.ipynb
+│   ├── DenseNet121_Baseline.ipynb
+│   ├── EfficientNetB0_Baseline.ipynb
+│   └── MobileNetV2_Baseline.ipynb
+├── saliency/
+├── static/
+├── templates/
+├── app.py
+├── livermodel.h5
+├── requirements.txt
+└── README.md
+```
 
 ---
 
-## Model Overview
+## Requirements
 
-- Input size: 128 × 128 × 3
-- Architecture:
-  - Convolutional layers with Batch Normalization
-  - Depthwise separable convolutions
-  - Residual and multi-scale feature aggregation
-  - Global Average Pooling
-  - Fully connected classification head
-- Output: Softmax probabilities for five fibrosis stages
+- Python 3.10
+- TensorFlow 2.15.1
+- Keras
+- NumPy
+- OpenCV
+- Scikit-learn
+- Matplotlib
+- Streamlit
+
+Install the required packages using:
+
+```bash
+pip install -r requirements.txt
+```
 
 ---
 
-## Class Labels
+## Dataset
 
-| Label | Description |
-|-----|------------|
-| F0 | No fibrosis |
-| F1 | Mild fibrosis |
-| F2 | Moderate fibrosis |
-| F3 | Severe fibrosis |
-| F4 | Cirrhosis |
+Experiments were conducted using the publicly available liver fibrosis ultrasound dataset released on Kaggle and originally reported by Joo et al.
+
+---
+
+## Experiments
+
+The repository includes:
+
+- Proposed LFANet model
+- Architectural ablation studies
+  - Without Attention
+  - Without Residual Connection
+  - Without Depthwise Separable Convolution
+  - Without Dilated Convolution
+- Dilation-rate analysis
+  - (1,1,1)
+  - (1,2,3)
+  - (1,2,5)
+  - (1,3,5)
+- Baseline CNN models
+  - ResNet50
+  - DenseNet121
+  - EfficientNetB0
+  - MobileNetV2
+
+All experiments were conducted using identical preprocessing, data augmentation, hyperparameter settings, and evaluation protocols.
 
 ---
 
 ## Explainability
 
-The system uses **Grad-CAM** to highlight image regions that contribute most to the model’s prediction.
+Model predictions are interpreted using:
 
-The explainability pipeline:
-1. Forward pass for prediction
-2. Gradient computation on the last convolutional layer
-3. Heatmap generation and overlay
-4. Optional textual explanation via LLM
+- Grad-CAM visualization
+- Optional post hoc LLM-generated textual explanations
 
-No diagnostic or clinical interpretation is produced.
+The LLM receives only the predicted fibrosis stage and confidence score. It does not access ultrasound images, Grad-CAM heatmaps, learned feature representations, or model parameters.
 
 ---
 
-## Project Structure
+## Citation
 
-LiverFibrosisApp/
-│
-├── app.py # Flask or Streamlit application
-├── livermodel.keras # Trained Keras model
-├── saliency/
-│ └── gradcam.py # Grad-CAM implementation
-├── templates/
-│ └── index.html # Web interface
-├── static/
-│ ├── css/
-│ └── js/
-├── uploads/ # Temporary uploaded images
-├── outputs/
-│ ├── cam/ # Grad-CAM images
-│ └── reports/ # PDF reports
-└── README.md
+If you use this repository, please cite:
 
+<!-- > Ahmad, K. H., Kehinde, T. O., Salami, F. O., Petinrin, O. O., Nadarajah, S., & Akpan, J. *LFANet: A Lightweight Explainable AI Model for Liver Fibrosis Classification with Dilated Attention and Two-Stage Interpretation.* Scientific Reports (under review). -->
+
+---
+
+## License
+
+This repository is provided for research and educational purposes.
